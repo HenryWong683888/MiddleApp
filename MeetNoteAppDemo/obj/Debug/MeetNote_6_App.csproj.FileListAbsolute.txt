@@ -32,3 +32,17 @@ D:\桌面\data\MeetNoteApp\6_meetnote\srcfans.com\MeetNoteAppDemo\bin\Debug\webs
 D:\桌面\data\MeetNoteApp\6_meetnote\srcfans.com\MeetNoteAppDemo\bin\Debug\websocket-sharp.xml
 D:\桌面\data\MeetNoteApp\6_meetnote\srcfans.com\MeetNoteAppDemo\obj\Debug\MeetNote_6_App.csproj.CopyComplete
 D:\桌面\data\MeetNoteApp\6_meetnote\srcfans.com\MeetNoteAppDemo\obj\Debug\MeetNote_6_App.csproj.ResolveComReference.cache
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\bin\Debug\MeetNoteApp.exe.config
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\bin\Debug\MeetNoteApp.exe
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\bin\Debug\MeetNoteApp.pdb
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\bin\Debug\websocket-sharp.dll
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\bin\Debug\websocket-sharp.xml
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\obj\Debug\MeetNote_6_App.csprojAssemblyReference.cache
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\obj\Debug\MeetNote_6_App.csproj.ResolveComReference.cache
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\obj\Debug\MeetNoteApp.Frm_Main.resources
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\obj\Debug\MeetNoteApp.Properties.Resources.resources
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\obj\Debug\MeetNote_6_App.csproj.GenerateResource.cache
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\obj\Debug\MeetNote_6_App.csproj.CoreCompileInputs.cache
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\obj\Debug\MeetNote_6_App.csproj.CopyComplete
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\obj\Debug\MeetNoteApp.exe
+D:\桌面\MeeNote\MiddleApp\MiddleApp\MeetNoteAppDemo\obj\Debug\MeetNoteApp.pdb

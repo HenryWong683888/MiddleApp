@@ -34,7 +34,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btn_Save = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -44,17 +43,17 @@
             this.btn_Clear.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.btn_Clear.Font = new System.Drawing.Font("宋体", 10F);
             this.btn_Clear.Image = ((System.Drawing.Image)(resources.GetObject("btn_Clear.Image")));
-            this.btn_Clear.Location = new System.Drawing.Point(363, 37);
+            this.btn_Clear.Location = new System.Drawing.Point(459, 37);
             this.btn_Clear.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Clear.Name = "btn_Clear";
-            this.btn_Clear.Size = new System.Drawing.Size(200, 67);
+            this.btn_Clear.Size = new System.Drawing.Size(184, 67);
             this.btn_Clear.TabIndex = 7;
             this.btn_Clear.UseVisualStyleBackColor = false;
             this.btn_Clear.Click += new System.EventHandler(this.btn_Clear_Click);
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.Location = new System.Drawing.Point(34, 169);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
@@ -67,6 +66,7 @@
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
             this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // button1
             // 
@@ -74,13 +74,12 @@
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.button1.Font = new System.Drawing.Font("宋体", 10F);
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.Location = new System.Drawing.Point(11, 11);
+            this.button1.Location = new System.Drawing.Point(647, 38);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(76, 52);
+            this.button1.Size = new System.Drawing.Size(170, 67);
             this.button1.TabIndex = 9;
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // btn_Save
@@ -100,23 +99,12 @@
             // 
             this.button2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.Location = new System.Drawing.Point(799, 36);
+            this.button2.Location = new System.Drawing.Point(822, 37);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(188, 67);
             this.button2.TabIndex = 10;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(578, 37);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(201, 67);
-            this.button3.TabIndex = 11;
-            this.button3.Text = " ";
-            this.button3.UseVisualStyleBackColor = false;
             // 
             // label4
             // 
@@ -126,7 +114,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(285, 35);
             this.label4.TabIndex = 15;
-            this.label4.Text = "MeeNoteApp_v1.1";
+            this.label4.Text = "MeeNoteApp_v1.8";
             // 
             // Frm_Main
             // 
@@ -135,7 +123,6 @@
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1920, 1040);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox1);
@@ -160,7 +147,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_Save;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label4;
     }
 }

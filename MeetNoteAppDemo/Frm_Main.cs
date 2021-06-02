@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using WebSocketSharp;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Runtime.InteropServices;
-
+using System.Drawing.Drawing2D;
 
 
 namespace MeetNoteApp
@@ -13,7 +13,12 @@ namespace MeetNoteApp
     public partial class Frm_Main : Form
     {
 
-
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool BringWindowToTop(IntPtr hWnd);
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
+        public static extern IntPtr FindWindow(String lpClassName, String lpWindowName);
 
         [DllImport("User32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int cmdShow);
@@ -23,12 +28,7 @@ namespace MeetNoteApp
 
         public Frm_Main()
         {
-           
-
             InitializeComponent();
-
-
-
         }
 
         //记录直线或者曲线的对象
@@ -44,20 +44,15 @@ namespace MeetNoteApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           /* //獲取當前活動進程的模塊名稱
-            string moduleName = System.Diagnostics.Process.GetCurrentProcess().MainModule.ModuleName;
-            //返回指定路徑字符串的文件名
-            string processName = System.IO.Path.GetFileNameWithoutExtension(moduleName);
-            //根據文件名創建進程資源數組
-            System.Diagnostics.Process[] processes = System.Diagnostics.Process.GetProcessesByName(processName);
-            //如果該數組長度大於1，說明多次運行
-            if (processes.Length > 1)
-            {
-                //MessageBox.Show("本程序一次只能運行一個實例！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);//彈出提示信息
-                this.Close();//關閉當前窗體
-            }*/
+            
+
+            //讓程式在工具列中隱藏
+            this.ShowInTaskbar = false;
+            //隱藏程式本身的視窗
+            this.Hide();
 
             showOnMonitor(1);
+
         }
 
         void showOnMonitor(int showOnMonitor)
@@ -73,31 +68,46 @@ namespace MeetNoteApp
             this.Show();
             this.WindowState= System.Windows.Forms.FormWindowState.Maximized;
         }
+        private Point p1, p2;
+        private static bool drawing = false;
+        Graphics g;
+
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                try
-                {
-                    mousePath.AddLine(e.X, e.Y, e.X, e.Y);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-            pictureBox1.Invalidate();
+           
+                g = pictureBox1.CreateGraphics();
+                
+                    if (drawing)
+                    {
+                        drawing = true;  
+                        Point currentPoint = new Point(e.X, e.Y);
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                        g.DrawLine(new Pen(Color.Black, 3), p2, currentPoint);
+
+                        p2.X = currentPoint.X;
+                        p2.Y = currentPoint.Y;
+                    }            
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
+            Graphics g = ((PictureBox)sender).CreateGraphics();
+            g.FillEllipse(Brushes.Black, e.X, e.Y, 4, 4);
 
-                mousePath.StartFigure();
-                mousePath.AddLine(e.X, e.Y, e.X, e.Y);
-            }
+                p1 = new Point(e.X, e.Y);
+                p2 = new Point(e.X, e.Y);
+               
+                drawing = true;
+
+            
+            
+        }
+
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            drawing = false;
         }
 
         #region 参数设置
@@ -115,10 +125,10 @@ namespace MeetNoteApp
             try
             {
                
-
                 set();//设置画笔的颜色、宽度、透明度
                 Pen CurrentPen = new Pen(Color.Black, myPenWidth);
                 e.Graphics.DrawPath(CurrentPen, mousePath);
+                
             }
             catch { }
         }
@@ -181,15 +191,72 @@ namespace MeetNoteApp
         {
 
         }
+        enum TernaryRasterOperations : uint
+        {
+            /// <summary>dest = source</summary>
+            SRCCOPY = 0x00CC0020,
+            /// <summary>dest = source OR dest</summary>
+            SRCPAINT = 0x00EE0086,
+            /// <summary>dest = source AND dest</summary>
+            SRCAND = 0x008800C6,
+            /// <summary>dest = source XOR dest</summary>
+            SRCINVERT = 0x00660046,
+            /// <summary>dest = source AND (NOT dest)</summary>
+            SRCERASE = 0x00440328,
+            /// <summary>dest = (NOT source)</summary>
+            NOTSRCCOPY = 0x00330008,
+            /// <summary>dest = (NOT src) AND (NOT dest)</summary>
+            NOTSRCERASE = 0x001100A6,
+            /// <summary>dest = (source AND pattern)</summary>
+            MERGECOPY = 0x00C000CA,
+            /// <summary>dest = (NOT source) OR dest</summary>
+            MERGEPAINT = 0x00BB0226,
+            /// <summary>dest = pattern</summary>
+            PATCOPY = 0x00F00021,
+            /// <summary>dest = DPSnoo</summary>
+            PATPAINT = 0x00FB0A09,
+            /// <summary>dest = pattern XOR dest</summary>
+            PATINVERT = 0x005A0049,
+            /// <summary>dest = (NOT dest)</summary>
+            DSTINVERT = 0x00550009,
+            /// <summary>dest = BLACK</summary>
+            BLACKNESS = 0x00000042,
+            /// <summary>dest = WHITE</summary>
+            WHITENESS = 0x00FF0062,
+            /// <summary>
+            /// Capture window as seen on screen.  This includes layered windows 
+            /// such as WPF windows with AllowsTransparency="true"
+            /// </summary>
+            CAPTUREBLT = 0x40000000
+        }
+
+        [DllImport("gdi32.dll", EntryPoint = "BitBlt", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool BitBlt([In] IntPtr hdc, int nXDest, int nYDest, int nWidth, int nHeight, [In] IntPtr hdcSrc, int nXSrc, int nYSrc, TernaryRasterOperations dwRop);
+
+        public static Bitmap CopyGraphicsContent(Graphics source, PictureBox pictureBox1)
+        {
+            Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+
+            using (Graphics dest = Graphics.FromImage(bmp))
+            {
+                IntPtr hdcSource = source.GetHdc();
+                IntPtr hdcDest = dest.GetHdc();
+
+                BitBlt(hdcDest, 0, 0, pictureBox1.Width, pictureBox1.Height, hdcSource, 0, 0, TernaryRasterOperations.SRCCOPY);
+
+                source.ReleaseHdc(hdcSource);
+                dest.ReleaseHdc(hdcDest);
+            }
+
+            return bmp;
+        }
 
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            SavedBitmap = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-            pictureBox1.DrawToBitmap(SavedBitmap, new Rectangle(0, 0, pictureBox1.Width, pictureBox1.Height));
-            Clipboard.SetImage(SavedBitmap);
+            Clipboard.SetImage(CopyGraphicsContent(g, pictureBox1));
         }
-
 
 
         public static void HandleRunningInstance(System.Diagnostics.Process instance)
@@ -199,12 +266,6 @@ namespace MeetNoteApp
             SetForegroundWindow(instance.MainWindowHandle);
         }
 
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool BringWindowToTop(IntPtr hWnd);
-        [DllImport("user32.dll", SetLastError = true)]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
-        [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
-        public static extern IntPtr FindWindow(String lpClassName, String lpWindowName);
         private void button2_Click(object sender, EventArgs e)
         {
 
@@ -257,10 +318,6 @@ namespace MeetNoteApp
             this.Hide();
 
             System.Environment.Exit(System.Environment.ExitCode);
-
-
-
-
 
         }
 
